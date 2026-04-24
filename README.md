@@ -3,8 +3,8 @@
 A high-performance full-stack application designed to process, analyze, and visualize hierarchical tree and graph relationships from string inputs.
 
 ## 🚀 Live Demo
-- **Frontend**: [https://graph-processor-application-frontend.vercel.app](https://graph-processor-application-frontend.vercel.app)
-- **Backend API**: [https://graph-processor-application-backend.vercel.app/bfhl](https://graph-processor-application-backend.vercel.app/bfhl)
+- **Frontend**: [https://vppraneeth-frontend.vercel.app/](https://vppraneeth-frontend.vercel.app/)
+- **Backend API**: [https://praneeth-backend.vercel.app/bfhl](https://praneeth-backend.vercel.app/bfhl)
 
 ## 👤 Developer Identity
 - **User ID**: `vppraneeth_26012006`
