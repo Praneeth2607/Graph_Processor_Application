@@ -9,48 +9,48 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Identity Fields - Replace these with your actual details
+// Identity Fields
 const IDENTITY = {
     user_id: "vppraneeth_26012006",
     email_id: "pv1719@srmist.edu.in",
     college_roll_number: "RA2311027020125"
 };
 
-app.post('/bfhl', (req, res) => {
+// Use a router to handle both /bfhl and /api/bfhl
+const router = express.Router();
+
+router.post('/bfhl', (req, res) => {
     try {
         const { data } = req.body;
-
         if (!data || !Array.isArray(data)) {
-            return res.status(400).json({
-                is_success: false,
-                message: "Invalid input format. Expected 'data' array."
-            });
+            return res.status(400).json({ is_success: false, message: "Invalid input format." });
         }
-
         const processed = processHierarchies(data);
-
-        const response = {
-            ...IDENTITY,
-            ...processed
-        };
-
-        res.status(200).json(response);
+        res.status(200).json({ ...IDENTITY, ...processed });
     } catch (error) {
-        console.error("Error processing request:", error);
-        res.status(500).json({
-            is_success: false,
-            message: "Internal server error."
-        });
+        res.status(500).json({ is_success: false, message: "Internal server error." });
     }
 });
 
-// Basic GET route for health check
-app.get('/', (req, res) => {
-    res.send("Tree Processor API is running.");
+router.get('/bfhl', (req, res) => {
+    res.status(200).json({
+        ...IDENTITY,
+        message: "The BFHL endpoint is active."
+    });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+router.get('/', (req, res) => {
+    res.send("Tree Processor API is running. Path: " + req.url);
 });
+
+// Mount the router on both / and /api to be safe
+app.use('/api', router);
+app.use('/', router);
+
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
 
 module.exports = app;
